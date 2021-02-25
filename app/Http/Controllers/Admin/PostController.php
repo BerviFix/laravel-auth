@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth;
 use App\Post;
 
 
@@ -39,7 +41,23 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+        $request->validate(
+            [
+                'title' => 'required|max:100',
+                'body' => 'required'
+            ]
+        );
+
+        $newPost = new Post();
+
+        $data["slug"] = Str::slug($data["title"]);
+        $data["user_id"] = Auth::id();
+        $newPost->fill($data);
+        $newPost->save();
+
+        return redirect()->route('admin.posts.index');
+
     }
 
     /**
