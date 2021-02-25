@@ -17,7 +17,7 @@
                 <textarea class="form-control" id="body" name="body" rows="10" value="{{ old('body') }}"></textarea>
             </div>
 
-            <input class="btn-primary" type="submit" value="Crea">
+            <input class="btn btn-primary" type="submit" value="Crea">
         </form>
     </div>
 @endsection
