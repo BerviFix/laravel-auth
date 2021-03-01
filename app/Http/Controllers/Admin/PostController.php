@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use App\Post;
 
 
@@ -45,7 +46,8 @@ class PostController extends Controller
         $request->validate(
             [
                 'title' => 'required|max:100',
-                'body' => 'required'
+                'body' => 'required',
+                'img_path' => 'required'
             ]
         );
 
@@ -53,6 +55,9 @@ class PostController extends Controller
 
         $data["slug"] = Str::slug($data["title"]);
         $data["user_id"] = Auth::id();
+
+        $data["img_path"] = Storage::disk('public')->put('images', $data["img_path"]);
+
         $newPost->fill($data);
         $newPost->save();
 

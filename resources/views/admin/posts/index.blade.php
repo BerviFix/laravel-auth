@@ -9,7 +9,7 @@
                     <th>ID</th>
                     <th>Titolo</th>
                     <th>Data creazione</th>
-                    <th colspan="3"></th>
+                    <th style="width: 150px">Immagine</th>
                 </tr>
             </thead>
 
@@ -19,6 +19,9 @@
                         <td>{{$post->id}}</td>
                         <td>{{$post->title}}</td>
                         <td>{{$post->created_at->format('d-m-y')}}</td>
+                        <td>
+                            <img class="img-fluid" src="{{ asset('storage/'. $post->img_path) }}" alt="{{$post->title}}">
+                        </td>
                     </tr>
                 @endforeach
             </tbody>
