@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use App\Mail\PostMail;
+use Illuminate\Support\Facades\Mail;
 use App\Post;
 
 
@@ -60,6 +62,8 @@ class PostController extends Controller
 
         $newPost->fill($data);
         $newPost->save();
+
+        Mail::to('test@mail.com')->send(new PostMail());
 
         return redirect()->route('admin.posts.index');
 
